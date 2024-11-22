@@ -15,9 +15,8 @@ env:
   UBOOT_RELEASE: latest
   UBOOT_BURNIMG: eMMC.burn.img
   ARMBIAN_REPO: armbian/build
-  ARMBIAN_REF: main
-  PATCHES: 4077,5076
-  PATCHES_DISABLED: 5082
+  ARMBIAN_REF: v24.11.1
+  PATCHES: 5076
 
 permissions:
   contents: write
@@ -193,25 +192,16 @@ jobs:
           - edge
           - current
         RELEASE:
-          # - focal # Ubuntu 20.04 LTS
-          - jammy # Ubuntu 22.04 LTS
-          # - lunar # Ubuntu 23.04
-          # - buster # Debian 10
-          - bullseye # Debian 11
+          # - jammy # Ubuntu 22.04 LTS
           - bookworm # Debian 12
-          - sid # Debian unstable
         TYPE:
-          - minimal
           - cli
           - desktop
         include:
           - TYPE: desktop
-            DESKTOP_ENVIRONMENT: xfce
+            DESKTOP_ENVIRONMENT: i3-wm
             DESKTOP_ENVIRONMENT_CONFIG_NAME: config_base
             DESKTOP_APPGROUPS_SELECTED: ""
-        exclude:
-          - RELEASE: sid
-            TYPE: desktop
 
     steps:
       - name: Import env
