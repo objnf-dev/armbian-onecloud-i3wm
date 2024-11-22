@@ -128,7 +128,6 @@ jobs:
       fail-fast: false
       matrix:
         BRANCH:
-          - edge
           - current
 
     steps:
@@ -169,7 +168,7 @@ jobs:
           sudo chown $(id -u):$(id -g) -R output/
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: debs-${{ matrix.BRANCH }}
           path: output/debs/*
@@ -189,11 +188,11 @@ jobs:
       fail-fast: false
       matrix:
         BRANCH:
-          - edge
           - current
         RELEASE:
-          # - jammy # Ubuntu 22.04 LTS
+          - jammy # Ubuntu 22.04 LTS
           - bookworm # Debian 12
+          - trixie  # Debian 13
         TYPE:
           - cli
           - desktop
@@ -228,7 +227,7 @@ jobs:
           done
 
       - name: Download debs
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: debs-${{ matrix.BRANCH }}
           path: output/debs/
